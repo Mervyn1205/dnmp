@@ -8,8 +8,8 @@ nginx:
         - ./nginx/fastcgi_params:/etc/nginx/fastcgi_params
         - ./nginx/nginx.conf:/etc/nginx/nginx.conf
         - ./nginx/conf.d:/etc/nginx/conf.d:rw
-        - ./logs/nginx:/var/log/nginx:rw
-        - ./www:/var/www/html:rw
+        - /www/logs/nginx:/var/log/nginx:rw
+        - /www/web:/var/www/html:rw
     links:
         - php-fpm-5.6:_DOCKER_PHP_FPM_5.6
         - php-fpm-7.1:_DOCKER_PHP_FPM_7.1
@@ -27,7 +27,7 @@ php-fpm-5.6:
         - mysql
     volumes:
         - ./php5.6/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
-        - ./www:/var/www/html:rw
+        - /www/web:/var/www/html:rw
 
 php-fpm-7.1:
     container_name: docker_php-fpm-7.1
@@ -39,7 +39,7 @@ php-fpm-7.1:
         - mysql
     volumes:
         - ./php7.1/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
-        - ./www:/var/www/html:rw
+        - /www/web:/var/www/html:rw
 
 
 mysql:
@@ -50,4 +50,4 @@ mysql:
     environment :
         MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - /www/data/mysql:/var/lib/mysql
