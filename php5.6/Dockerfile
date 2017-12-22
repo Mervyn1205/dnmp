@@ -30,3 +30,5 @@ RUN tar xfz /tmp/phpredis-$PHPREDIS_VERSION.tar.gz \
     && mv phpredis-$PHPREDIS_VERSION /usr/src/php/ext/redis \
     && docker-php-ext-install redis \
     && rm -rf /usr/src/php
+
+RUN mv /tmp/composer.phar /usr/local/bin/composer
