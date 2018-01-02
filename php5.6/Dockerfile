@@ -18,6 +18,7 @@ RUN apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring
+    && docker-php-ext-install bcmath
 
 # RUN docker-php-ext-install MongoClient
 
