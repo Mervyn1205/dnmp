@@ -1,6 +1,6 @@
 FROM nginx:1.13.6
 
-MAINTAINER Mervyn
+LABEL MAINTAINER="Mervyn"
 
 EXPOSE 80
 

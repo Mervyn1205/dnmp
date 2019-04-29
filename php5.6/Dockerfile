@@ -1,5 +1,5 @@
 FROM php:5.6.32-fpm
-MAINTAINER Mervyn
+LABEL MAINTAINER="Mervyn"
 
 RUN groupadd -f www
 RUN useradd -g www www

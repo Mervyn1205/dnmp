@@ -1,5 +1,5 @@
 FROM php:7.1-fpm
-MAINTAINER Mervyn
+LABEL MAINTAINER="Mervyn"
 
 RUN groupadd -f www
 RUN useradd -g www www
@@ -25,7 +25,8 @@ RUN apt-get install -y --allow-downgrades \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath \
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip \
+    && apt-get install procps
 
 # RUN docker-php-ext-install MongoClient
 
