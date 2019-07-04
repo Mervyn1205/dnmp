@@ -36,3 +36,4 @@ RUN tar xfz /tmp/phpredis-$PHPREDIS_VERSION.tar.gz \
     && rm -rf /usr/src/php
 
 RUN mv /tmp/composer.phar /usr/local/bin/composer
+RUN chmod 755 /usr/local/bin/composer

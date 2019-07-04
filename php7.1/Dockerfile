@@ -25,9 +25,19 @@ RUN apt-get install -y --allow-downgrades \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install bcmath \
-    && docker-php-ext-install zip \
-    && apt-get install procps
+    && docker-php-ext-install zip
 
+RUN apt-get install -y git
+RUN git clone https://github.com/nikic/php-ast.git \
+    && cd php-ast \
+    && phpize \
+    && ./configure \
+    && make install \
+    && echo 'extension=ast.so' > /usr/local/etc/php/php.ini \
+    && cd .. && rm -rf php-ast
+
+RUN apt-get install -y procps
+RUN apt-get install -y vim
 # RUN docker-php-ext-install MongoClient
 
 COPY ext /tmp
@@ -41,3 +51,5 @@ RUN tar xfz /tmp/phpredis-$PHPREDIS_VERSION.tar.gz \
     && rm -rf /usr/src/php
 
 RUN mv /tmp/composer.phar /usr/local/bin/composer
+RUN chmod 755 /usr/local/bin/composer
+
