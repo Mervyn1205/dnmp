@@ -3,48 +3,32 @@ services:
     nginx:
         build: ./nginx
         container_name: docker_nginx
-        ports:
-            - "80:80"
-        #     - "443:443"
         volumes:
             - ./nginx/fastcgi_params:/etc/nginx/fastcgi_params
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/conf.d:/etc/nginx/conf.d:rw
-            - /www/logs/nginx:/var/log/nginx:rw
-            - /www/web:/var/www/html:rw
-        networks:
-            - "backend"
+            - ./data/logs/nginx:/var/log/nginx:rw
+            - ~/workspace/www:/var/www/html:rw
 
-        # extra_hosts:
-            # - "localhost:172.17.0.1"
-        depends_on:
-            - php-fpm-5.6
-            - php-fpm-7.1
-            - mysql
-
-    php-fpm-5.6:
-        container_name: docker_php-fpm-5.6
-        build: ./php5.6
-        expose:
-            - "9000"
-
-        networks:
-            - "backend"
+    php56:
+        container_name: docker_php56
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+            args:
+                PHP_VERSION: ${PHP56_VERSION}
+                PHP_EXTENSIONS: ${PHP56_EXTENSIONS}
+                PHP_MEMCACHED_VERSION: ${PHP56_MEMCACHED_VERSION}
         volumes:
             - ./php5.6/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
-            - /www/web:/var/www/html:rw
+            - ~/workspace/www:/var/www/html:rw
 
-    php-fpm-7.1:
-        container_name: docker_php-fpm-7.1
+    php71:
+        container_name: docker_php71
         build: ./php7.1
-        expose:
-            - "9000"
-
-        networks:
-            - "backend"
         volumes:
             - ./php7.1/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
-            - /www/web:/var/www/html:rw
+            - ~/workspace/www:/var/www/html:rw
 
 
     mysql:
@@ -55,7 +39,7 @@ services:
         environment :
             MYSQL_ROOT_PASSWORD: 123456
         volumes:
-          - /www/data/mysql:/var/lib/mysql
+          - ~/data/mysql:/var/lib/mysql
         networks:
             - "backend"
 networks:
