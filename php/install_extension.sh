@@ -26,7 +26,10 @@ do
         pecl install memcached-${MY_PHP_MEMCACHED_VERSION} && docker-php-ext-enable memcached
 
     elif [[ ${ext} == "redis" ]]; then
-        pecl install memcached-${MY_PHP_MEMCACHED_VERSION} && docker-php-ext-enable memcached
+        tar xfz /tmp/extensions/phpredis-${MY_PHP_REDIS_VERSION}.tar.gz \
+            && mkdir -p /usr/src/php/ext \
+            && mv phpredis-${MY_PHP_REDIS_VERSION} /usr/src/php/ext/redis \
+            && docker-php-ext-install redis
     fi
 done
 

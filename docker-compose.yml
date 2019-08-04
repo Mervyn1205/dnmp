@@ -19,6 +19,7 @@ services:
                 PHP_VERSION: ${PHP56_VERSION}
                 PHP_EXTENSIONS: ${PHP56_EXTENSIONS}
                 PHP_MEMCACHED_VERSION: ${PHP56_MEMCACHED_VERSION}
+                PHP_REDIS_VERSION: ${PHP56_REDIS_VERSION}
         volumes:
             - ./php5.6/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
             - ~/workspace/www:/var/www/html:rw
